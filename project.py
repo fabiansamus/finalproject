@@ -122,6 +122,11 @@ def img(user_name,img_id):
     foto = session.query(Fotos).filter_by(id=img_id).one()
     coments =session.query(Comentarios).filter_by(post_id=img_id).all()
     likes= session.query(LikesDislikes).filter_by(post_id=img_id).first()
+    if likes is None:
+        like = LikesDislikes(post_id=img_id,like=0,dislike=0)
+        session.add(like)
+        session.commit()
+        return render_template('image.html',user=user,img=foto,coments=coments,like=like,user_id=user_id.id)
     return render_template('image.html',user=user,img=foto,coments=coments,like=likes,user_id=user_id.id)
 
 @app.route('/new_img/<user_id>', methods=['GET','POST'])
@@ -171,7 +176,7 @@ def upload():
 def likes():
     img_id = request.form['img_id']
     like = session.query(LikesDislikes).filter_by(post_id=img_id).one()
-    if like is none:
+    if like is None:
         like = LikesDislikes(post_id=img_id,like=1,dislike=0)
         likes= likesID(post_id=img_id,user_id=secion['user_id'])
         session.add(likes)
@@ -189,7 +194,7 @@ def likes():
 def dislikes():
     img_id = request.form['img_id']
     like = session.query(LikesDislikes).filter_by(post_id=img_id).one()
-    if like is none:
+    if like is None:
         like = LikesDislikes(post_id=img_id,like=0,dislike=1)
         likes= likesID(post_id=img_id,user_id=secion['user_id'])
         session.add(likes)

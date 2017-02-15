@@ -1,0 +1,52 @@
+@media(max-width:925px){
+    #container{
+        width:50%;
+    }
+}
+@media(max-width:625px){
+    #container{
+        width:60%;
+    }
+}
+@media(max-width:550px){
+    #container{
+        width:70%;
+    }
+    #header h1{
+        font-size:20px;
+    }
+    .tab{
+        width:100%;
+        -webkit-border-top-left-radius:2px;
+	    -webkit-border-top-right-radius:2px;
+    }
+    .txtfield{
+        width:90%;
+    }
+    #footer p{
+        font-size:9px;
+    }
+}
+@media(max-width:450px){
+    #container{
+        width:80%;
+    }
+}
+@media(max-width:400px){
+    #container{
+        width:90%;
+    }
+}
+@media(max-width:375px){
+    #container{
+        width:100%;
+        margin-bottom:100px;
+    }
+    #signinbox{
+		padding:2px;
+		margin:35px 0px 0px 5px;
+	}
+	#signupbox{
+		padding:2px;
+	}
+}

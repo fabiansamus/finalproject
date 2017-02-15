@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <form class="col-md-8" id="upload-form" action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <strong>Files upload</strong><br>
+            <!-- <div class="dropzone" id='dropzone'>Drop img here to upload</div> -->
+            <strong>Name:</strong><br>
+            <input type="text" name="name"><br>
+            <strong>descripcion</strong><br>
+            <hr>
+            <textarea name="tags"></textarea> 
+            <br>
+            <hr>
+            <strong>Estilo</strong><br>
+            <label class="estilos" style="display: inline; float: center;" >
+                <label>lapises</label>
+                <input type="radio" name="estilo" value="lapises">
+                <label>colores</label>
+                <input type="radio" name="estilo" value="colores">
+                <label>oleos</label>
+                <input type="radio" name="estilo" value="oleos">
+                <label>carboncillo</label>
+                <input type="radio" name="estilo" value="carboncillo">
+                <label>Sketch</label>                
+                <input type="radio" name="estilo" value="Sketch">
+                <label>formas</label>
+                <input type="radio" name="estilo" value="formas">
+                <label>animales</label>
+                <input type="radio" name="estilo" value="animales">
+                <label>digital</label>
+                <input type="radio" name="estilo" value="digital">
+                <label>stret-art</label>
+                <input type="radio" name="estilo" value="stret-art">
+                <label>bustos</label>
+                <input type="radio" name="estilo" value="bustos">
+            </label>
+            <hr>
+            <input id="file-picker" type="file" name="file" accept="image/*" multiple>
+            <div id="msg"></div>
+            <hr>
+            <br>
+            <input type="submit" value="Upload!" id="upload-button">
+            <hr>
+        </form>
+    </div>
+</div>        
+   <!-- body -->
+  <script src="{{ url_for('static', filename='js/jquery.js') }}"></script>
+
+  <script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+
+<script>
+    $("#file-picker").change(function(){
+        var input = document.getElementById('file-picker');
+        for (var i=0; i<input.files.length; i++)
+        {
+        //koala.jpg, koala.JPG substring(index) lastIndexOf('a') koala.1.jpg
+            var ext= input.files[i].name.substring(input.files[i].name.lastIndexOf('.')+1).toLowerCase()
+            if ((ext == 'jpg') || (ext == 'png'))
+            {
+                $("#msg").text("Files are supported")
+            }
+            else
+            {
+                $("#msg").text("Files are NOT supported")
+                document.getElementById("file-picker").value ="";
+            }
+        }
+    } );
+</script>
+{% endblock %}

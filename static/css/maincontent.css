@@ -1,0 +1,101 @@
+body{
+}
+a{
+	color:#fff;
+	text-decoration: none;
+}
+
+/*upload img*/
+.container{
+	margin: 0;
+	text-align: center;
+}
+.content{
+	top: 103px;
+	text-align: center;
+	left: 5px;
+	right: 5px;
+	width: auto;
+	height: auto;
+	background-color: #999;
+}
+#all{
+	width:100%;
+	margin: 0 auto; /*centers the website*/
+}
+
+#likes{
+	height:5px;
+	width:50%;
+	background:#0000ee;
+	float:left;
+}
+#dislikes{
+	height:5px;
+	width:50%;
+	background:#ccc;
+	float:right;
+}
+
+#bar{
+	margin:0 auto;
+	width:60%;
+}
+/*end of upload*/
+/*gallery img */
+.contenido{
+	bottom: 0;
+}
+.img-url-name p{
+	background-color: #777;
+	width: 100%;
+	text-align:center;
+	color: white;
+}
+.lead{
+	text-align: center;
+	color: #111;
+	text-decoration: none;
+}
+.date{
+	text-align: center;
+}
+/*img{
+	display: block;
+	width: 40%;
+	height: 30%;
+}*/
+/*min content*/
+
+#filter hr{
+	height: 33px; 
+	background-color: #666; 
+	top:0; 
+	margin: 0; 
+	padding: 0;
+	width: 100%;
+}
+/*end of main*/
+
+/*like */
+
+.likes a{
+	border-color: #222 3px solid;
+    margin: 0;
+    padding: 0;
+}
+
+
+/*.content{
+	width: 100%
+	height: 100%;
+	background-color: red;
+	
+}
+#filter hr{
+	height: 33px; 
+	background-color: #666; 
+	top:0; 
+	margin: 0; 
+	padding: 0;
+}

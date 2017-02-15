@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="row">
+        <form class="col-md-8" id="upload-form" action="{{ url_for('editar',user_id=user.id,img_id=img.id) }}" method="POST" enctype="multipart/form-data">
+            <strong>File edit</strong><br>
+            <!-- <div class="dropzone" id='dropzone'>Drop img here to upload</div> -->
+            <strong>Name:</strong><br>
+            <input type="text" name="name" value="{{img.name}}"><br>
+        	<img style='width: 40%;height: 300px;' src="{{ url_for('static', filename=img.folder) }}">
+            <hr>
+            <strong>descripcion</strong><br>
+            <textarea name="tags" value="{{img.tag}}">{{img.tag}}</textarea> 
+            <br name='img_id' value="{{img.id}}" >
+            <hr>
+            <strong>Estilo</strong><br>
+            <label class="estilos" style="display: inline; float: center;" >
+                <label>lapises</label>
+                <input type="radio" name="estilo" value="lapises">
+                <label>colores</label>
+                <input type="radio" name="estilo" value="colores">
+                <label>oleos</label>
+                <input type="radio" name="estilo" value="oleos">
+                <label>carboncillo</label>
+                <input type="radio" name="estilo" value="carboncillo">
+                <label>Sketch</label>                
+                <input type="radio" name="estilo" value="Sketch">
+                <label>formas</label>
+                <input type="radio" name="estilo" value="formas">
+                <label>animales</label>
+                <input type="radio" name="estilo" value="animales">
+                <label>digital</label>
+                <input type="radio" name="estilo" value="digital">
+                <label>stret-art</label>
+                <input type="radio" name="estilo" value="stret-art">
+                <label>bustos</label>
+                <input type="radio" name="estilo" value="bustos">
+            </label>
+            <hr>
+            <input type="submit" value="Finish" id="upload-button">
+            <hr>
+        </form>
+    </div>
+
+
+
+{% endblock%}

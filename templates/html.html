@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/media.css') }}">
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/screen.css') }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='js/javascript.js') }}" ></script>
+</head>
+<body>
+  <header id="header">
+  	<img src="">
+    <h1>Welcome To Art</h1>
+  </header>
+  <section id="maincontent">
+    <div id="container">
+      <div id="tabbox">           
+        <a href="#" id="signin" class="tab select" class="tab select">Log-In</a>
+        <a href="#" id="signup" class="tab signup" class="tab signup">Sign-Up</a>
+      </div>
+      <div id="formpanel">
+        <div id="signinbox">
+          <form action="/log_in" id="signinform" method="POST">
+            <label for="email">Email Address</label>
+            <input type="email" name="email" id="email" value='{{email}}' class="txtfield" tabindex="1" autocomplete="off">
+            <h3 name='error' value='{{error}}' class="error">{{error}}</h3>
+            <label for="password">Password </label>
+            <input type="password" name="password" id="password" class="txtfield" tabindex="2" autocomplete="off">
+            <h3 name='error2' value='{{error2}}' class="error">{{error2}}</h3>
+            <input type="submit" name="loginbtn" id="submitlogin" value="LOGIN" class="btn" tabindex="3">
+          </form>
+        </div>
+        <div id="signupbox">
+          <form action="/sign_up" id="signupform" method="POST">
+            <label for="username">User Name</label>
+            <input type="text" name="uname" id="uname"  value='{{name}}' class="txtfield" tabindex="4" autocomplete="off">
+            <h3 name='errorU' value='{{errorU}}' class="error">{{errorU}}</h3>
+            <label for="newemail">Email Address</label>
+            <input type="email" name="newemail" id="newemail" value='{{email}}' class="txtfield" tabindex="5" autocomplete="off">
+            <h3 name='error3' value='{{error3}}' class="error">{{error3}}</h3>
+            <label for="password1">Password</label>
+            <input type="password" name="password1" id="password1" class="txtfield" tabindex="6"  autocomplete="off">
+            <h3 name='errorE' value='{{errorE}}' class="error">{{errorE}}</h3>
+            <label for="password2">Confirm Password</label>
+            <input type="password" name="password2" id="password2" class="txtfield" tabindex="7" autocomplete="off">
+            
+            <input type="submit" name="loginbtn" id="registerbtn" value="SIGNUP" class="btn" tabindex="9">
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>    
+<footer id="footer">
+
+</footer>
+</body>
+</html>

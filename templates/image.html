@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block content%}
+    <!-- <link rel="stylesheet" type="text/css" href=""> -->
+    <div class="contenido">
+        <h2 class="img-url-name">
+            <p >{{img.name}}</p>
+        </h2>
+        <p class="lead">
+            by <a href="{{url_for('gallery',user_id=img.user_img_name)}}">{{img.user_img_name}}</a>
+        </p>
+        <p class="date"><i class="fa fa-clock-o"></i> Posted on {{img.creacion}}</p>
+        <hr>
+        <img style='width: 40%;height: 30%;' src="{{ url_for('static', filename=img.folder) }}">
+        <div class="likes">
+            <a href="{{url_for('estilos',estilo=img.estilo)}}">{{img.estilo}}</a>
+            {% if user.id == user_id  %}
+                <a href="{{url_for('informacion',user_id=user.id,img_id=img.id)}}">Editar imagen</a>
+                <a href="{{url_for('delete',user_id=user.id,foto_id=img.id)}}">Delete imagen</a>
+            {% endif %}
+        </div>
+        <hr>
+        <div id='bar'>
+                <div id="bar">
+                    <div id="likes" value="{{img.id}}"></div>
+                    <div id="dislikes"></div>
+                </div>
+                <input type="button" value="{{like.like}} Like" calss="likeButton"/>
+                <input type="button" value="{{like.dislike}} Dislike" class="dislikeButton"/>
+        </div>
+        <hr>
+<form action="{{url_for('comments',user_id=user.name,img_id=img.id)}}" method="post">
+<div>
+<textarea name="comments" id="comments">
+Hey... say something!
+</textarea>
+</div>
+<input type="submit" value="Submit" class="coment">
+</form>
+<hr>
+{% for comentario in coments %}
+    <div id="{{comentario.id}}" style="width:80%;">
+        <h2>Comentario por: {{comentario.user_id}}</h2>
+        <p>{{comentario.content}}</p>
+        <p class="date"><i class="fa fa-clock-o"></i> Posted on {{comentario.creacion}}</p>
+    </div>
+    <hr>
+{% endfor%}
+</div>
+<style type="text/css">
+</style>
+<script type="text/javascript">
+    $(document).ready(function(){
+    $('.likeButton').on('click',function(){ 
+        var obj = $(this).val();
+        var likes = parseInt(obj)+1;
+        $(this).val(""+likes.toString()+" Like");
+        var id_img = $("this").siblings("div").children('#likes').val();
+        $.ajax({
+            type: 'POST',
+            url: '/like/',
+            data: {'id_img',id_img},
+            success: function(obj){
+                console.log(obj);
+            },
+            error(function() {
+                alert('error saving like');
+            });
+            
+    });
+    $('.dislikeButton').on('click',function(){
+        var obj = $(this).val();
+        var likes = parseInt(obj)+1;
+        $(this).val(""+likes.toString()+" dislikes"); 
+        var id_img = $("this").siblings("div").children('#likes').val();
+        $.ajax({
+            type: 'POST',
+            url: '/dislike/',
+            data: {'id_img',id_img},
+            success: function(obj){
+                console.log(obj);
+            },
+            error(function() {
+                alert('error saving like');
+            });
+    });
+});
+</script>
+{% endblock %}

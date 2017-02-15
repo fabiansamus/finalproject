@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="row">
+        <!-- <img src="{{url_for('static', filename='img/7cbc4e37ea8825d838b06c5b0c460b9d.jpg')}}"> -->
+        <div class="col-lg-12">
+            <h1 class="page-header" style="margin:0;">Gallery</h1>
+        </div>
+        {% for img in images %}
+        <div class="contenido">
+            <h2 class="img-url-name">
+                <p><a href="{{url_for('img',user_name=img.user_img_name,img_id=img.id)}}">{{img.name}}</a></p>
+            </h2>
+            <p class="lead">
+                by <a href="{{url_for('gallery',user_id=img.user_img_name)}}">{{img.user_img_name}}</a>
+            </p>
+            <p class="date"><i class="fa fa-clock-o"></i> Posted on {{img.creacion}}</p>
+            <hr>
+            <a href="{{url_for('img',user_name=img.user_img_name,img_id=img.id)}}">
+            <img style='width: 40%;height: 30%;' src="{{url_for('static', filename=img.folder)}}">
+            </a>
+            <p>{{img.tag}}</p>
+            <hr>
+            {% if user.id == user_id %}
+                <a href="{{url_for('delete',user_id=user.id, img_id=img.id)}}">Delete img</a>
+                <a href="{{url_for('edit',user_id=user.id, img_id=img.id)}}">Edit iinfo</a>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+<!-- <script type="text/javascript">
+    
+    var a = document.getElementById('likeButton').value;
+    var b = document.getElementById('dislikeButton').value;
+    var likes=parseInt(a) , dislikes=parseInt(b);
+
+//Functions to increase likes and immediately calculate bar widths
+function like(){
+    likes++;
+    calculateBar();
+}
+function dislike(valor){
+    dislikes++;
+    calculateBar();
+}
+
+//Calculates bar widths
+function calculateBar(){
+    var total= likes+dislikes;
+    //Simple math to calculate percentages
+    var percentageLikes=(likes/total)*100;
+    var percentageDislikes=(dislikes/total)*100;
+
+    //We need to apply the widths to our elements
+    document.getElementById('likes').style.width=percentageLikes.toString()+"%";
+    document.getElementById('dislikes').style.width=percentageDislikes.toString()+"%";
+    
+    //We add the numbers on the buttons, just to show how to
+    document.getElementById('likeButton').value=""+likes.toString()+" Like";
+    document.getElementById('dislikeButton').value=""+dislikes.toString()+" Dislike";
+
+}
+
+calculateBar();
+</script>> -->
+{% endblock %}

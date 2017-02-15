@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/content.css') }}">
+    <script type="text/javascript" src="{{ url_for('static', filename='js/like.js') }}" ></script>
+</head>
+<body>
+    <nav class="nav-main">
+        <div class="logo"><a href="{{url_for('home',user_id=user.name)}}">Arts</a></div>
+
+        <!-- <ul>
+            <li>
+                <button class="nav-item">user-log: {{user.name}}</button> 
+                <div class="nav-content">
+                    <div class="nav-sub">
+                        <ul>
+                            <li><a href="/{{user.name}}">{{user.name}}</a></li>
+                            <li><a href="/comentados">Comentado</a></li>
+                            <li><a href="/gallery/{{user.id}}">Galeria-img</a></li>
+                            <li><a href="/likes/{{user.id}}">Likes</a></li>
+                            <li><a href='/new_img/{{user.id}}'>Upload-image</a></li>
+                            <li><a href="/logout">Log-out</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </li>
+        </ul> -->
+    </nav>
+    <div id="sidebar">
+
+        <ul>
+            <li><a href="/{{user.name}}">{{user.name}}</a></li>
+            <li><a href="/gallery/{{user.name}}">Galeria-img</a></li>
+            <li><a href="/likes/{{user.name}}">Likes</a></li>
+            <li><a href='/new_img/{{user.name}}'>Upload-image</a></li>
+            <li><a href="{{url_for('lista')}}">Estillos</a></li>
+            <!-- <li><a href="#">Link 4</a></li> -->
+            <!-- <li><a href="#">Link 5</a></li> -->
+            <li><a href="/logout">Log-out</a></li>
+        </ul>
+
+        <div id="sidebar-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+    </div>
+    <hr id="filer" style="height: 33px; 
+    background-color: #666; 
+    top:0; 
+    margin: 0; 
+    padding: 0;
+    width: 100%">
+    <div class="content">
+        {% block content %}
+                <!-- here go teh cintent of page -->
+        {% endblock %}
+    </div>
+     <div id="log"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src='url'></script>
+    <script>
+    $( "input[type=radio][name=nav-group]" ).on( "click", function() {
+        // $('#log').css("background-color","orange")
+        $( "#log" ).html( $( "input:checked" ).val() + " is checked!" );
+        if ($( "input:checked" ).val() == '1') {
+            $('#log').css("background-color","green")
+            $('.nav-close').css('display','block')
+        }else{
+            $('#log').css("background-color","orange")
+            $('.nav-close').css('display','none')   
+        }
+
+    });
+    $(document).ready(function(){
+        $('#sidebar-btn').click(function(){
+            $('#sidebar').toggleClass('visible');
+        });
+    });
+
+    </script>
+
+</body>
+</html>

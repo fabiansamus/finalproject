@@ -171,41 +171,27 @@ def upload():
     # return send_from_directory("images", filename, as_attachment=True)
     return redirect(url_for('img',user_name=user.name,img_id=foto.id))
     
-@app.route('/like/',methods=['POST'])
+@app.route('/like/', methods=["POST"])
 @login_required
 def likes():
-    img_id = request.form['img_id']
+    img_id = request.form["img_id"]
+    print 'hello'
     like = session.query(LikesDislikes).filter_by(post_id=img_id).one()
-    if like is None:
-        like = LikesDislikes(post_id=img_id,like=1,dislike=0)
-        likes= likesID(post_id=img_id,user_id=secion['user_id'])
-        session.add(likes)
-        session.add(like)
-        session.commit()
-        return jsonify('entro like')
-    else:
-        like.like+=1
-        session.add(like)
-        session.commit()
-        return jsonify('new like guardado')
+    like.like+=1
+    session.add(like)
+    session.commit()
+    return jsonify('new like guardado')
 
 @app.route('/dislike/',methods=['POST'])
 @login_required
 def dislikes():
     img_id = request.form['img_id']
+    print img_id
     like = session.query(LikesDislikes).filter_by(post_id=img_id).one()
-    if like is None:
-        like = LikesDislikes(post_id=img_id,like=0,dislike=1)
-        likes= likesID(post_id=img_id,user_id=secion['user_id'])
-        session.add(likes)
-        session.add(like)
-        session.commit()
-        return jsonify('entro like')
-    else:
-        like.dislike+=1
-        session.add(like)
-        session.commit()
-        return jsonify('new like guardado')
+    like.dislike+=1
+    session.add(like)
+    session.commit()
+    return jsonify('new like guardado')
 
 
 @app.route('/comments/<user_id>/<int:img_id>',methods=['POST'])
@@ -268,6 +254,12 @@ def likesuser(user_name):
     user = session.query(User).filter_by(id=secion['user_id']).one()
     fotos= session.query(Fotos,likesID).filter_by(user_id=secion['user_id']).all()
     return render_template('galery.html',user=user,images=fotos)
+
+@app.route('/test')
+@login_required
+def test():
+    return render_template('likestest.html')
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)

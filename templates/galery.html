@@ -3,28 +3,34 @@
 <div class="container">
     <div class="row">
         <!-- <img src="{{url_for('static', filename='img/7cbc4e37ea8825d838b06c5b0c460b9d.jpg')}}"> -->
-        <div class="col-lg-12">
-            <h1 class="page-header" style="margin:0;">Gallery</h1>
-        </div>
+        <nav class="col-lg-12">
+            <span class="nav-btn"></span>
+            <ul class="nav" style="">
+                <li><a href="/estilos/lapises">lapises</a></li>
+                <li><a href="/estilos/colores">colores</a></li>
+                <li><a href="/estilos/oleos">oleos</a></li>
+                <li><a href="/estilos/carboncillo">carboncillo</a></li>
+                <li><a href="/estilos/Sketch">Sketch</a></li>
+                <li><a href="/estilos/formas">formas</a></li>
+                <li><a href="/estilos/animales">animales</a></li>
+                <li><a href="/estilos/digital">digital</a></li>
+                <li><a href="/estilos/stret-art">stret-art</a></li>
+                <li><a href="/estilos/bustos">bustos</a></li>
+            </ul>
+        </nav>
         {% for img in images %}
-        <div class="contenido">
-            <h2 class="img-url-name">
-                <p><a href="{{url_for('img',user_name=img.user_img_name,img_id=img.id)}}">{{img.name}}</a></p>
+        <div class="contenido" style="">
+            <h2 class="img-url-name" style="">
+                <p style=""><a href="{{url_for('img',user_name=img.user_img_name,img_id=img.id)}}">{{img.name}}</a></p>
             </h2>
             <p class="lead">
                 by <a href="{{url_for('gallery',user_id=img.user_img_name)}}">{{img.user_img_name}}</a>
             </p>
             <p class="date"><i class="fa fa-clock-o"></i> Posted on {{img.creacion}}</p>
-            <hr>
             <a href="{{url_for('img',user_name=img.user_img_name,img_id=img.id)}}">
-            <img style='width: 40%;height: 30%;' src="{{url_for('static', filename=img.folder)}}">
+            <img style='' src="{{url_for('static', filename=img.folder)}}">
             </a>
             <p>{{img.tag}}</p>
-            <hr>
-            {% if user.id == user_id %}
-                <a href="{{url_for('delete',user_id=user.id, img_id=img.id)}}">Delete img</a>
-                <a href="{{url_for('edit',user_id=user.id, img_id=img.id)}}">Edit iinfo</a>
-            {% endif %}
         {% endfor %}
     </div>
 </div>

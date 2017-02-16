@@ -1,9 +1,21 @@
 {% extends "base.html" %}
 {% block content%}
 <div class="contenido">
-<div class="col-lg-12">
-            <h1 class="page-header" style="margin:0;">Imagen</h1>
-        </div>
+        <nav class="col-lg-12">
+            <span class="nav-btn"></span>
+            <ul class="nav" style="">
+                <li><a href="/estilos/lapises">Lapises</a></li>
+                <li><a href="/estilos/colores">Colores</a></li>
+                <li><a href="/estilos/oleos">Oleos</a></li>
+                <li><a href="/estilos/carboncillo">Carboncillo</a></li>
+                <li><a href="/estilos/Sketch">Sketch</a></li>
+                <li><a href="/estilos/formas">Gormas</a></li>
+                <li><a href="/estilos/animales">Animales</a></li>
+                <li><a href="/estilos/digital">Digital</a></li>
+                <li><a href="/estilos/stret-art">Stret-art</a></li>
+                <li><a href="/estilos/bustos">Bustos</a></li>
+            </ul>
+        </nav>
         <h2 class="img-url-name">
             <p >{{img.name}}</p>
         </h2>
@@ -12,7 +24,7 @@
         </p>
         <p class="date"><i class="fa fa-clock-o"></i> Posted on {{img.creacion}}</p>
         <hr>
-        <img style='width: 40%;height: 30%;' src="{{ url_for('static', filename=img.folder) }}">
+        <img style='' src="{{ url_for('static', filename=img.folder) }}">
         <div class="likes">
             <a href="{{url_for('estilos',estilo=img.estilo)}}">{{img.estilo}}</a>
             {% if user.id == user_id  %}

@@ -1,0 +1,37 @@
+.nav{
+	background-color: #666;
+	list-style: none;
+	color: #fff;
+	margin: 0;
+	font-size: 35px;
+	text-align: center;
+}
+.nav > li{
+	display: inline-block;
+	border:1px solid #444;
+}
+.nav > li > a{
+	text-decoration: none;
+	color: #fff; 
+}
+@media (max-width: 1291px) {
+	.nav{
+		text-align: center;
+		display: none;
+	}
+	.nav > li{
+		display: block;
+	}
+	.nav-btn{
+		text-align: center;
+		cursor: pointer;
+		display: block;
+		background-color: #666;
+		color: white;
+		font-size: 35px; 	
+	}
+	.nav-btn:before {
+		content: "Estilos";
+	}
+
+}

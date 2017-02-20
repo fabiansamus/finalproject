@@ -6,8 +6,8 @@ from sqlalchemy import create_engine, or_, desc, asc
 from sqlalchemy.orm import sessionmaker
 from flask_debugtoolbar import DebugToolbarExtension
 from db_art import Base, Fotos, User, LikesDislikes, Comentarios, likesID
-# from flask_admin import Admin
-# from flask_admin.contrib.sqla import ModelView
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 
 app = Flask(__name__)
 app.secret_key = 'super_super_secret'
@@ -25,12 +25,13 @@ session = DBSession()
 # Flask Debug Toolbar
 # toolbar = DebugToolbarExtension(app)
 # set up admind panel
-# admin = Admin(app)
-# admin.add_view(ModelView(User, db.session))
-# admin.add_view(ModelView(Fotos, db.session))
-# admin.add_view(ModelView(Comentarios, db.session))
-# admin.add_view(ModelView(LikesDislikes, db.session))
-# admin.add_view(ModelView(likesID, db.session))
+admin = Admin()
+admin.init_app(app)
+admin.add_view(ModelView(User, session))
+admin.add_view(ModelView(Fotos, session))
+admin.add_view(ModelView(Comentarios, session))
+admin.add_view(ModelView(LikesDislikes, session))
+# admin.add_view(ModelView(likesID, Base))
 # crear un objeto json para  enviar los errores al
 # 
 # secion del log in and out

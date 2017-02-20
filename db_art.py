@@ -20,11 +20,11 @@ class User(Base):
     password = Column(String(250), nullable=False)
     email = Column(String(250), nullable=False)
 
-class UserPicture(Base):
-	__tablename__='userimg'
+# class UserPicture(Base):
+# 	__tablename__='userimg'
 
-	user_id = Column(Integer, ForeignKey('user.id'), primary_key=True)
-	user = relationship('User')
+# 	user_id = Column(Integer, ForeignKey('user.id'), primary_key=True)
+# 	user = relationship('User')
 
 class Fotos(Base):
     __tablename__ = 'post'
@@ -59,6 +59,7 @@ class LikesDislikes(Base):
 class likesID(object):
     __tablename__='info'
 
+    id = Column(Integer, primary_key=True)
     post_id = Column(Integer, ForeignKey('post.id'))
     user_id = Column(Integer, ForeignKey('user.id'))
     creacion = Column(DateTime, default=func.now())

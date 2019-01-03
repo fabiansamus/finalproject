@@ -2,7 +2,7 @@
 from flask import Flask, render_template, request, redirect, url_for, flash, jsonify
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from database_setup import Base, User, Fotos, LikesDislikes
+from db_art import Base, User, Fotos, LikesDislikes
 
 app = Flask(__name__)
 
@@ -28,7 +28,7 @@ def editRestaurant():
 	return "This page will be for singup"
 
 
-@app.route('/Home/<str:user>')
+@app.route('/Home/<string:user>')
 def deleteRestaurant(user): 
 	return "This page will be for user info %s"% user
 

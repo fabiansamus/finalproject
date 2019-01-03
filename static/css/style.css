@@ -5,14 +5,14 @@ body{
 	padding:0;
 	margin:0;
 	font-size:small;
-	background-image: url(../img/37c2f8cc51ab6378b368238fb4ed92db.jpg);
+	background-image: url(../img/30415.png);
 	background-repeat: no-repeat;
 	background-size: cover;
 }
 #header{
 	top:0;
 	overflow:hidden;
-	background-color:#151718;
+	background-color:#124158;
 	width:100%;
 	color:#b7b2b2;
 	border-bottom:3px solid color:#fff;
@@ -26,10 +26,10 @@ body{
 
 #footer{
 	bottom:0;
-	background-color:#111;
+	background-color:#1f3b88;
 	width:100%;
 	color:white;
-	border-top:3px solid #111;
+	border-top:3px solid #21308a;
 	height:auto;
 	text-align:right;
 	position:fixed;
@@ -44,9 +44,9 @@ body{
 	margin:5%;
 	margin-right:auto;
 	margin-left:auto;
-	background-color:#111;
+	background-color:rgb(42, 61, 112);
 	border-radius:20px;
-	box-shadow: 0px 0px 12px #1c1e1f;
+	box-shadow: 0px 0px 12px #1f3b88;
 	height:auto;
 }
 #signupbox{

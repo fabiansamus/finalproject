@@ -4,10 +4,10 @@ from flask import Flask, render_template, request, redirect, url_for, flash, jso
 from flask import session as secion
 from sqlalchemy import create_engine, or_, desc, asc
 from sqlalchemy.orm import sessionmaker
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 from db_art import Base, Fotos, User, LikesDislikes, Comentarios, likesID
 from flask_admin import Admin
-from flask_admin.contrib.sqla import ModelView
+# from flask_admin.contrib.sqla import ModelView
 
 app = Flask(__name__)
 app.secret_key = 'super_super_secret'
@@ -25,12 +25,12 @@ session = DBSession()
 # Flask Debug Toolbar
 # toolbar = DebugToolbarExtension(app)
 # set up admind panel
-admin = Admin()
-admin.init_app(app)
-admin.add_view(ModelView(User, session))
-admin.add_view(ModelView(Fotos, session))
-admin.add_view(ModelView(Comentarios, session))
-admin.add_view(ModelView(LikesDislikes, session))
+# admin = Admin()
+# admin.init_app(app)
+# admin.add_view(ModelView(User, session))
+# admin.add_view(ModelView(Fotos, session))
+# admin.add_view(ModelView(Comentarios, session))
+# admin.add_view(ModelView(LikesDislikes, session))
 # admin.add_view(ModelView(likesID, Base))
 # crear un objeto json para  enviar los errores al
 # 
@@ -59,18 +59,13 @@ def log_in():
     if request.method == 'POST':
         email=request.form['email']
         password = request.form['password']
-        if request.form['email'] and request.form['password']:
-            if session.query(User).filter_by(email= request.form['email']).first():
-                user=session.query(User).filter_by(email= request.form['email']).first()
-                if user.password == hashlib.sha256(password[1]).hexdigest():
-                    secion['logged_in']=True
-                    secion['user_id']= user.id
-                    flash('cabas de iniciar secion')
-                    return redirect(url_for('home',user_id= user.name))
-                else:
-                    return render_template('login_signup.html',error2='password no es valido',email=email)
-            else:
-                return render_template('login_signup.html',error='email no encontrado',error2='password no es valido',email=email)
+        if session.query(User).filter_by(email= request.form['email']).first():
+            user=session.query(User).filter_by(email= request.form['email']).first()
+            if user.password == hashlib.sha256(password[1]).hexdigest():
+                secion['logged_in']=True
+                secion['user_id']= user.id
+                flash('cabas de iniciar secion')
+                return redirect(url_for('home',user_id= user.name))
         else:
             return render_template('login_signup.html',error='email no encontrado',error2='password no es valido',email=email)
 
@@ -91,7 +86,7 @@ def sign_up():
     elif password1 != password2:
         return render_template('login_signup.html',errorE='las passwords no son el mismo',email=email,name=username)
     elif username and email and (password1 == password2) and (user_ is None and email_ is None):
-        user = User(name = username,password=hashlib.sha256(password1[1]).hexdigest(),email=email)
+        user = User(name = username,password=hashlib.sha256(password1[1]).hexdigest(),email=email,status='Admin')
         session.add(user)
         session.commit()
         secion['logged_in']=True
@@ -271,3 +266,4 @@ def test():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000)
+    

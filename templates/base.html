@@ -1,86 +1,94 @@
 
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Welcome</title>
-    <meta charset="UTF-8">
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/content.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/maincontent.css') }}">
-    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/like.js') }}" ></script> -->
-    <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='js/like.js') }}"></script>
-    <script language="JavaScript" type="text/javascript" src="{{ url_for('static', filename='js/estilos.js') }}"></script>
-    <script src="http//ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-</head>
-<body>
-    <nav class="nav-main">
-        <div class="logo"><a href="{{url_for('home',user_id=user.name)}}">Arts</a></div>
-
-        <!-- <ul>
-            <li>
-                <button class="nav-item">user-log: {{user.name}}</button> 
-                <div class="nav-content">
-                    <div class="nav-sub">
-                        <ul>
-                            <li><a href="/{{user.name}}">{{user.name}}</a></li>
-                            <li><a href="/comentados">Comentado</a></li>
-                            <li><a href="/gallery/{{user.id}}">Galeria-img</a></li>
-                            <li><a href="/likes/{{user.id}}">Likes</a></li>
-                            <li><a href='/new_img/{{user.id}}'>Upload-image</a></li>
-                            <li><a href="/logout">Log-out</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </li>
-        </ul> -->
-    </nav>
-    <div id="sidebar">
-
-        <ul>
-            <li><a href="/{{user.name}}">{{user.name}}</a></li>
-            <li><a href="/gallery/{{user.name}}">Galeria-img</a></li>
-            <li><a href="/likes/{{user.name}}">Likes</a></li>
-            <li><a href='/new_img/{{user.name}}'>Upload-image</a></li>
-            <li><a href="{{url_for('lista')}}">Estillos</a></li>
-            <!-- <li><a href="#">Link 4</a></li> -->
-            <!-- <li><a href="#">Link 5</a></li> -->
-            <li><a href="/logout">Log-out</a></li>
-        </ul>
-
-        <div id="sidebar-btn">
-            <span></span>
-            <span></span>
-            <span></span>
+    <title>Prestamos</title>
+    <link href="https://fonts.googleapis.com/css?family=Muli:200,300,400,600,700,800,900" rel="stylesheet">
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <script src="https://use.fontawesome.com/08c2e793c5.js"></script>
+ 
+      <link href="/static/css/main.css" rel="stylesheet">
+ 
+  </head>
+  <body>
+    <header>
+      <div class="row nav-header">
+        <div class="col-2">
+          <div class="header-logo">
+          </div>
+          <div class="header-content">
+            <a href="#"> Prestamos</a>
+          </div>
         </div>
-
-    </div>
-    <!-- <hr id="filer"> -->
-    <div class="content">
-        {% block content %}
-                <!-- here go teh cintent of page -->
-        {% endblock %}
-    </div>
-     <div id="log"></div>
-    <script>
-    $( "input[type=radio][name=nav-group]" ).on( "click", function() {
-        // $('#log').css("background-color","orange")
-        $( "#log" ).html( $( "input:checked" ).val() + " is checked!" );
-        if ($( "input:checked" ).val() == '1') {
-            $('#log').css("background-color","green")
-            $('.nav-close').css('display','block')
-        }else{
-            $('#log').css("background-color","orange")
-            $('.nav-close').css('display','none')   
-        }
-
-    });
-    $(document).ready(function(){
-        $('#sidebar-btn').click(function(){
-            $('#sidebar').toggleClass('visible');
-        });
-    });
-
-    </script>
-
-</body>
-</html>
+        <div class="col">
+          <nav class="navbar navbar-expand-lg navbar-light ">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav">
+                <li class="nav-item">
+                  <a class="nav-link" href="/Home/{{user.name}}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/prestamistas/{{user.name}}">Prestamistas</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link " href="/solicitud/{{user.name}}">Solicitud</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/clientes/{{user.name}}">Clientes</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/Transacciones/{{user.name}}">Transacciones</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/depositos/{{user.name}}">Depositos</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/reportes/{{user.name}}">Reportes</a>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+        <div class="col-1">
+          <div class="notification">
+            <a href=""> <i class="fa fa-bell" aria-hidden="true"></i></a>
+          </div>
+          <div class="profile">
+            <span class="profile_dropdown"><button class="profile_dropdown" 
+              type="button" id="dropdownMenu5" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false"><i class="fa fa-user-circle-o" aria-hidden="true"></i></button></span>
+            <div class="dropdown-menu profile_logout">
+              <a class="dropdown-item" href="">Profile</a>
+              <a class="dropdown-item" href="">Change Password</a>
+              <a class="dropdown-item" href="/logout">Logout</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    {% block basebreadcrumb %}
+        <div class="breadcrumbcontainer">
+          <ol class="breadcrumb">
+            <span>You are Here:</span> &nbsp;&nbsp;
+            <li><a href="">Home</a>&nbsp;/</li> &nbsp;
+            {% block breadcrumb %}
+            {% endblock %}
+          </ol>
+        </div>
+    {% endblock basebreadcrumb %}
+    {% block stage %}
+    {% endblock %}
+    {% block js %}
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4" crossorigin="anonymous"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js" integrity="sha384-h0AbiXch4ZDo7tp9hKZ4TsHbi047NrKGLO3SEJAg45jXxnGIfYzk4Si90RDIqNm1" crossorigin="anonymous"></script>
+      {% block extra_js%}
+      {% endblock %}
+    {% endblock js %}
+  </body>
+</html>s

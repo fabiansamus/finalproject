@@ -107,15 +107,54 @@ def logout():
 def home(user_id):
     user = session.query(User).filter_by(name=user_id).one()
     post = session.query(Fotos).order_by(desc(Fotos.creacion)).all()
-    return render_template('galery.html',user=user,images=post)
+    return render_template('page.html',user=user,load=post)
 
-@app.route('/gallery/<user_id>', methods=['GET'])
+@app.route('/prestamistas/<user_id>', methods=['GET'])
 @login_required
-def gallery(user_id):
+def prestamistas(user_id):
     user = session.query(User).filter_by(id=secion['user_id']).one()
-    user_gallery= session.query(Fotos).filter_by(user_img_name=user_id).all()
-    print user_gallery
-    return render_template('galery.html',user=user,images=user_gallery)
+    return render_template('/branch/list.html',user=user,prestamista="user_gallery")
+
+@app.route('/prestamistas/crear/<user_id>')
+@login_required
+def prestamistas_crear(user_id):
+    return render_template('/branch/create.html')
+    
+@app.route('/prestamistas/editar/<user_id>')
+@login_required
+def prestamistas_editar(user_id):
+    return render_template('/branch/editar.html')
+
+@app.route('/prestamistas/ver/<user_id>')
+@login_required
+def prestamistas_ver(user_id):
+    return render_template('/branch/view.html')
+
+@app.route('/clientes/<user_id>')
+@login_required
+def clientes(user_id):
+    return render_template('likestest.html')
+    
+@app.route('/solicitud/<user_id>')
+@login_required
+def solicitud(user_id):
+    return render_template('likestest.html')
+
+
+@app.route('/Transacciones/<user_id>')
+@login_required
+def Transacciones(user_id):
+    return render_template('transactions.html')
+    
+@app.route('/depositos/<user_id>')
+@login_required
+def depositos(user_id):
+    return render_template('likestest.html')
+
+@app.route('/reportes/<user_id>')
+@login_required
+def reportes(user_id):
+    return render_template('reports.html')
 
 @app.route('/gallery/<user_name>/<int:img_id>', methods=['GET'])
 @login_required

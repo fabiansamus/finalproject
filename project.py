@@ -140,24 +140,45 @@ def prestamistas_crear_():
 @app.route('/prestamistas/editar/<user_id>',methods=['GET','POST'])
 @login_required
 def prestamistas_editar(user_id):
-    return render_template('/branch/editar.html')
+    if request.method == 'GET':
+        return render_template('/branch/editar.html')
+    if request.method == 'POST':
+        
+
 
 @app.route('/prestamistas/ver/<user_id>',methods=['GET','POST'])
 @login_required
 def prestamistas_ver(user_id):
-    return render_template('/branch/view.html')
+    if request.method == 'GET':
+        prestamistas = session.query(User).filter_by(id=user_id).one()
+        return render_template('/branch/view.html',prestamistas=prestamistas)
 
 @app.route('/clientes/<user_id>',methods=['GET','POST'])
 @login_required
 def clientes(user_id):
-    clientes = session.query(User).filter_by(status='cliente').all()
-    return render_template('likestest.html',clientes=clientes)
+    if request.method == 'GET':
+        clientes = session.query(User).filter_by(status='cliente').all()
+        return render_template('likestest.html',clientes=clientes)
     
 @app.route('/solicitud/<user_id>',methods=['GET','POST'])
 @login_required
 def solicitud(user_id):
-    solicitud = session.query(Solicitud).filter_by(date).all()
-    return render_template('likestest.html')
+    if request.method == 'GET':
+        solicitud = session.query(Solicitud).filter_by(date).all()
+        return render_template('likestest.html')
+    if request.method == 'POST':
+        prestamista =request.form["name"]
+        monto_prestamo =request.form["monto_prestamo"]
+        interes =request.form["interes"]
+        periodos =request.form["periodos"]
+        modalidad_de_pago =request.form["modalidad_de_pago"]
+        cantidad_pagos =request.form["cantidad_pagos"]
+        id_user =request.form["id_user"]
+        solicitud = Solicitud(id_prestamista=prestamista,monto_prestamo=monto_prestamo,interes=interes,modalidad_de_pago=modalidad_de_pago,cantidad_pagos=cantidad_pagos)
+        session.add(solicitud)
+        session.commit()
+        return redirect(url_for('home',user_id=admin.name))
+        
 
 
 @app.route('/Transacciones/<user_id>',methods=['GET','POST'])
@@ -168,17 +189,27 @@ def Transacciones(user_id):
     
 @app.route('/depositos/<user_id>',methods=['GET','POST'])
 @login_required
-def depositos(user_id):
-    return render_template('likestest.html')
+def depositos(user_id, id_prestamo):
+    if request.method == 'GET':
+        cuato =sesion.query(Cuota).filter_by(id_prestamos=id_prestamo)
+        return render_template('likestest.html', id_prestamo=id_prestamo,cuato=cuato)
+    if request.method == 'POST':
+        id_prestamo = request.form['id_prestamo']
+        capital_restante = request.form['capital_restante']
+        capital_abono = request.form['capital_abono']
+        capital_abono = request.form['capital_abono']
+        total_pago = request.form['total_pago']
+        status = 'saldado'
 
-@app.route('/reportes/<user_id>',methods=['GET','POST'])
+
+@app.route('/reportes/<user_id>',methods=['GET'])
 @login_required
 def reportes(user_id):
-    prestamos =session.query()
-    pagos = session.query()
-    caja =session.query()
-    caja_salida= session.query()
-    caja_entrada = session.query()
+    prestamos =session.query(Prestamos).filter_by(date).all()
+    pagos = session.query(Pago).filter_by(date).all()
+    caja =session.query(Caja).filter_by(date).all()
+    caja_salida= session.query(Caja_Salida).filter_by(date).all()
+    caja_entrada = session.query(Caja_Entrada).filter_by(date).all()
     return render_template('reports.html', prestamos=prestamos,pagos=pagos,caja=caja,caja_salida=caja_entrada,caja_salida=caja_salida)
 
 @app.route('/gallery/<user_name>/<int:img_id>', methods=['GET','POST'])

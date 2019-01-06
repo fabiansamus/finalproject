@@ -137,41 +137,41 @@ def prestamistas_crear_():
     else:
         return redirect(url_for('home',user_id=admin.name))
     
-@app.route('/prestamistas/editar/<user_id>')
+@app.route('/prestamistas/editar/<user_id>',methods=['GET','POST'])
 @login_required
 def prestamistas_editar(user_id):
     return render_template('/branch/editar.html')
 
-@app.route('/prestamistas/ver/<user_id>')
+@app.route('/prestamistas/ver/<user_id>',methods=['GET','POST'])
 @login_required
 def prestamistas_ver(user_id):
     return render_template('/branch/view.html')
 
-@app.route('/clientes/<user_id>')
+@app.route('/clientes/<user_id>',methods=['GET','POST'])
 @login_required
 def clientes(user_id):
     clientes = session.query(User).filter_by(status='cliente').all()
     return render_template('likestest.html',clientes=clientes)
     
-@app.route('/solicitud/<user_id>')
+@app.route('/solicitud/<user_id>',methods=['GET','POST'])
 @login_required
 def solicitud(user_id):
     solicitud = session.query(Solicitud).filter_by(date).all()
     return render_template('likestest.html')
 
 
-@app.route('/Transacciones/<user_id>')
+@app.route('/Transacciones/<user_id>',methods=['GET','POST'])
 @login_required
 def Transacciones(user_id):
     cuota =session.query(Cuota).filter_by(date).all()
-    return render_template('transactions.html')
+    return render_template('transactions.html',cuota=cuota)
     
-@app.route('/depositos/<user_id>')
+@app.route('/depositos/<user_id>',methods=['GET','POST'])
 @login_required
 def depositos(user_id):
     return render_template('likestest.html')
 
-@app.route('/reportes/<user_id>')
+@app.route('/reportes/<user_id>',methods=['GET','POST'])
 @login_required
 def reportes(user_id):
     prestamos =session.query()
@@ -179,9 +179,9 @@ def reportes(user_id):
     caja =session.query()
     caja_salida= session.query()
     caja_entrada = session.query()
-    return render_template('reports.html')
+    return render_template('reports.html', prestamos=prestamos,pagos=pagos,caja=caja,caja_salida=caja_entrada,caja_salida=caja_salida)
 
-@app.route('/gallery/<user_name>/<int:img_id>', methods=['GET'])
+@app.route('/gallery/<user_name>/<int:img_id>', methods=['GET','POST'])
 @login_required
 def img(user_name,img_id):
     user =session.query(User).filter_by(id=secion['user_id']).one()

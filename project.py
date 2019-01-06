@@ -179,13 +179,33 @@ def solicitud(user_id):
         session.commit()
         return redirect(url_for('home',user_id=admin.name))
         
+@app.route('/solicitud_aprovacion/<user_id>/<id_solicitud',methods=['GET','POST'])
+@login_required
+def solicitud_aprovacion(user_id,id_solicitud):
+    if request.method == 'GET':
+        solicitud = session.query(Solicitud).filter_by(id=id_solicitud)
+        return render_template('solicitud.html', solicitud=solicitud)
+    if request.method == 'POST':
+        status= request.form['status']
+        nota =  request.form['nota']
+        amount = request.form['cantidad']
+        interes = request.form['interes']
+        periodos = request.form['periodo']
+        solicitud = session.query(Solicitud).filter_by(id=id_solicitud)
+        solicitud(status=status,capital_inicial=amount,interes=interes,periodos=periodos,)
+        session.upload(solicitud)
+        session.commit
 
+        
 
 @app.route('/Transacciones/<user_id>',methods=['GET','POST'])
 @login_required
 def Transacciones(user_id):
-    cuota =session.query(Cuota).filter_by(date).all()
-    return render_template('transactions.html',cuota=cuota)
+    if request.method == 'GET':
+        cuota =session.query(Cuota).filter_by(date).all()
+        return render_template('transactions.html',cuota=cuota)
+    if request.method == 'POST':
+        cuota
     
 @app.route('/depositos/<user_id>',methods=['GET','POST'])
 @login_required

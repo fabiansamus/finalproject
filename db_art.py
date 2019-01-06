@@ -122,9 +122,11 @@ class Cuota(Base):
     capital_restante = Column(Integer,nullable=False)
     capital_abono = Column(Integer,nullable=False)
     interes_restante =Column(Integer, nullable=False)
-    interes_abono = Column(Integer,nullable=False)
+    capital_abono = Column(Integer,nullable=False)
     total_pago = Column(Integer,nullable=False)
     abonos_restantes =Column(Integer, nullable=False)
+    date =Column(DateTime,  default=func.now())
+    status =Column(String)
     
 
 class Pago(Base):
@@ -137,7 +139,7 @@ class Pago(Base):
     interes_abono = Column(Integer,nullable=False)
     total_pago = Column(Integer,nullable=False)
     pago_status = Column(String(30), nullable=False)
-
+    date =Column(DateTime,  default=func.now())
     cuota_id=(Integer, ForeignKey('cuota.id_prestamo'))
 
 class Solicitud(Base):
@@ -151,6 +153,7 @@ class Solicitud(Base):
     periodos = Column(Integer, nullable=False)
     status =Column(String(10), default='review')
     date =Column(DateTime,  default=func.now())
+    nota= Column(String(250))
     
     
 class Solicitud_Prestamo(Base):

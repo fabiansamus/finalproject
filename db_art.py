@@ -110,6 +110,7 @@ class Prestamos(Base):
     cantidad_pagos = Column(Integer, nullable=False)
     nota = Column(Integer, nullable=False)
     id_user = Column(Integer, ForeignKey('user.id'))
+    status = Column(String(10), default='activo')
 
 class Cuota(Base):
     __tablename__='cuota'
@@ -125,8 +126,6 @@ class Cuota(Base):
     total_pago = Column(Integer,nullable=False)
     abonos_restantes =Column(Integer, nullable=False)
     
-    
-    
 
 class Pago(Base):
     __tablename__='pago'
@@ -141,6 +140,18 @@ class Pago(Base):
 
     cuota_id=(Integer, ForeignKey('cuota.id_prestamo'))
 
+class Solicitud(Base):
+    __tablename__="solicitud"
+
+    id = Column(Integer, primary_key=True)
+    id_prestamista =Column(Integer, ForeignKey('user.id'))
+    id_person =Column(Integer, ForeignKey('user.id'))
+    capital_inicial = Column(Integer,nullable=False)
+    interes =Column(Float, nullable=False)
+    periodos = Column(Integer, nullable=False)
+    status =Column(String(10), default='review')
+    date =Column(DateTime,  default=func.now())
+    
     
 class Solicitud_Prestamo(Base):
     __tablename__='solicitud_prestamos'

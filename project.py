@@ -106,19 +106,36 @@ def logout():
 @login_required
 def home(user_id):
     user = session.query(User).filter_by(name=user_id).one()
-    post = session.query(Fotos).order_by(desc(Fotos.creacion)).all()
-    return render_template('page.html',user=user,load=post)
+    pago = session.query(Pago).filter_by(pago_status='saldado').all()
+    due = session.query(Pago).filter_by(pago_status='atrasado').all()
+    solicitud = session.query(Solicitud).filter_by(status='review').all()
+    prestamos = session.query(Prestamos).filter_by(status='activo').all()
+    return render_template('page.html',user=user,load=pago,due=due,solicitud=solicitud,prestamos=prestamos)
 
 @app.route('/prestamistas/<user_id>', methods=['GET'])
 @login_required
 def prestamistas(user_id):
     user = session.query(User).filter_by(id=secion['user_id']).one()
-    return render_template('/branch/list.html',user=user,prestamista="user_gallery")
+    prestamistas= session.query(User).filter_by(status='prestamista').all()
+    return render_template('/branch/list.html',user=user,prestamista=prestamistas)
 
-@app.route('/prestamistas/crear/<user_id>')
+@app.route('/prestamistas/crear/<user_id>', methods=['GET'])
 @login_required
 def prestamistas_crear(user_id):
-    return render_template('/branch/create.html')
+    admin= session.query(User).filter_by(id=secion['user_id']).one()
+    if admin.status=='admin':
+        return render_template('/branch/create.html')
+    else:
+        return redirect(url_for('home',user_id=admin.name))
+
+@app.route('/prestamistas/crear_/<user_id>', methods=['POST'])
+@login_required
+def prestamistas_crear_():
+    admin= session.query(User).filter_by(id=secion['user_id']).one()
+    if admin.status=='admin':
+        return 'hello'
+    else:
+        return redirect(url_for('home',user_id=admin.name))
     
 @app.route('/prestamistas/editar/<user_id>')
 @login_required
@@ -133,17 +150,20 @@ def prestamistas_ver(user_id):
 @app.route('/clientes/<user_id>')
 @login_required
 def clientes(user_id):
-    return render_template('likestest.html')
+    clientes = session.query(User).filter_by(status='cliente').all()
+    return render_template('likestest.html',clientes=clientes)
     
 @app.route('/solicitud/<user_id>')
 @login_required
 def solicitud(user_id):
+    solicitud = session.query(Solicitud).filter_by(date).all()
     return render_template('likestest.html')
 
 
 @app.route('/Transacciones/<user_id>')
 @login_required
 def Transacciones(user_id):
+    cuota =session.query(Cuota).filter_by(date).all()
     return render_template('transactions.html')
     
 @app.route('/depositos/<user_id>')
@@ -154,6 +174,11 @@ def depositos(user_id):
 @app.route('/reportes/<user_id>')
 @login_required
 def reportes(user_id):
+    prestamos =session.query()
+    pagos = session.query()
+    caja =session.query()
+    caja_salida= session.query()
+    caja_entrada = session.query()
     return render_template('reports.html')
 
 @app.route('/gallery/<user_name>/<int:img_id>', methods=['GET'])

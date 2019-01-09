@@ -5,9 +5,9 @@ from flask import session as secion
 from sqlalchemy import create_engine, or_, desc, asc
 from sqlalchemy.orm import sessionmaker
 # from flask_debugtoolbar import DebugToolbarExtension
-from db_art import Base, Fotos, User, LikesDislikes, Comentarios, likesID
+from db_art import *
 from flask_admin import Admin
-# from flask_admin.contrib.sqla import ModelView
+from flask_admin.contrib.sqla import ModelView
 
 app = Flask(__name__)
 app.secret_key = 'super_super_secret'
@@ -16,22 +16,31 @@ app.debug = True
 # SqlAlchemy Settings
 APP_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-engine = create_engine('sqlite:///db_art.db')
+engine = create_engine('sqlite:///db_art.db?check_same_thread=False')
 Base.metadata.bind = engine
-
 DBSession = sessionmaker(bind=engine)
 session = DBSession()
 
 # Flask Debug Toolbar
 # toolbar = DebugToolbarExtension(app)
 # set up admind panel
-# admin = Admin()
-# admin.init_app(app)
-# admin.add_view(ModelView(User, session))
-# admin.add_view(ModelView(Fotos, session))
-# admin.add_view(ModelView(Comentarios, session))
-# admin.add_view(ModelView(LikesDislikes, session))
-# admin.add_view(ModelView(likesID, Base))
+admin = Admin()
+admin.init_app(app)
+admin.add_view(ModelView(User, session))
+admin.add_view(ModelView(Person, session))
+admin.add_view(ModelView(Extra_Info, session))
+admin.add_view(ModelView(Fotos, session))
+admin.add_view(ModelView(Prestamos, session))
+admin.add_view(ModelView(Cuota, session))
+admin.add_view(ModelView(Pago, session))
+admin.add_view(ModelView(Solicitud, session))
+admin.add_view(ModelView(Solicitud_Prestamo, session))
+admin.add_view(ModelView(Img_Solicitud, session))
+admin.add_view(ModelView(Prestamos_Pago_Atrasado, session))
+admin.add_view(ModelView(Caja, session))
+admin.add_view(ModelView(Caja_Salida, session))
+admin.add_view(ModelView(Caja_Entrada, session))
+admin.add_view(ModelView(Cierre_Caja, session))
 # crear un objeto json para  enviar los errores al
 # 
 # secion del log in and out
@@ -117,7 +126,7 @@ def home(user_id):
 def prestamistas(user_id):
     user = session.query(User).filter_by(id=secion['user_id']).one()
     prestamistas= session.query(User).filter_by(status='prestamista').all()
-    return render_template('/branch/list.html',user=user,prestamista=prestamistas)
+    return render_template('/branch/list.html',user=user,prestamistas=prestamistas)
 
 @app.route('/prestamistas/crear/<user_id>', methods=['GET'])
 @login_required
@@ -126,14 +135,23 @@ def prestamistas_crear(user_id):
     if admin.status=='admin':
         return render_template('/branch/create.html')
     else:
-        return redirect(url_for('home',user_id=admin.name))
+        return redirect(url_for('home',user_id=admin.id))
 
 @app.route('/prestamistas/crear_/<user_id>', methods=['POST'])
 @login_required
 def prestamistas_crear_():
     admin= session.query(User).filter_by(id=secion['user_id']).one()
     if admin.status=='admin':
-        return 'hello'
+        name = request.form['name']
+        datepicker = request.form['datepicker']
+        country = request.form['country']
+        state = request.form['state']
+        district = request.form['district']
+        city = request.form['city']
+        area = request.form['area']
+        phone_number = request.form['phone_number']
+        pincode = request.form['pincode']
+        return "acces"
     else:
         return redirect(url_for('home',user_id=admin.name))
     
@@ -143,14 +161,14 @@ def prestamistas_editar(user_id):
     if request.method == 'GET':
         return render_template('/branch/editar.html')
     if request.method == 'POST':
-        
+        return 0
 
 
-@app.route('/prestamistas/ver/<user_id>',methods=['GET','POST'])
+@app.route('/prestamistas/ver/<user_id>/<prestamista_id>',methods=['GET'])
 @login_required
-def prestamistas_ver(user_id):
+def prestamistas_ver(user_id,prestamista_id):
     if request.method == 'GET':
-        prestamistas = session.query(User).filter_by(id=user_id).one()
+        prestamistas = session.query(User).filter_by(id=prestamista_id).one()
         return render_template('/branch/view.html',prestamistas=prestamistas)
 
 @app.route('/clientes/<user_id>',methods=['GET','POST'])
@@ -158,14 +176,24 @@ def prestamistas_ver(user_id):
 def clientes(user_id):
     if request.method == 'GET':
         clientes = session.query(User).filter_by(status='cliente').all()
-        return render_template('likestest.html',clientes=clientes)
+        return render_template('/client/list.html.html',clientes=clientes)
     
-@app.route('/solicitud/<user_id>',methods=['GET','POST'])
+@app.route('/solicitud/<user_id>',methods=['GET'])
 @login_required
 def solicitud(user_id):
     if request.method == 'GET':
-        solicitud = session.query(Solicitud).filter_by(date).all()
-        return render_template('likestest.html')
+        user =session.query(User).filter_by(id=secion['user_id']).one()
+        solicitud = session.query(Solicitud).filter_by(status='review').all()
+        return render_template('/group/loan/list_of_loan_accounts.html',user=user,loan_account=solicitud)
+
+
+@app.route('/solicitud_ver/<user_id>/<solicitud_id>',methods=['GET','POST'])
+@login_required
+def solicitud_ver(user_id,solicitud_id):
+    if request.method == 'GET':
+
+        solicitud = session.query(Solicitud).filter_by(id=solicitud_id).one()
+        return render_template('/group/loan/application.html',loan_accounts_list=solicitud)
     if request.method == 'POST':
         prestamista =request.form["name"]
         monto_prestamo =request.form["monto_prestamo"]
@@ -178,8 +206,8 @@ def solicitud(user_id):
         session.add(solicitud)
         session.commit()
         return redirect(url_for('home',user_id=admin.name))
-        
-@app.route('/solicitud_aprovacion/<user_id>/<id_solicitud',methods=['GET','POST'])
+
+@app.route('/solicitud_aprovacion/<user_id>/<id_solicitud>', methods=['GET','POST'])
 @login_required
 def solicitud_aprovacion(user_id,id_solicitud):
     if request.method == 'GET':
@@ -196,8 +224,7 @@ def solicitud_aprovacion(user_id,id_solicitud):
         session.upload(solicitud)
         session.commit
 
-        
-
+    
 @app.route('/Transacciones/<user_id>',methods=['GET','POST'])
 @login_required
 def Transacciones(user_id):
@@ -205,7 +232,7 @@ def Transacciones(user_id):
         cuota =session.query(Cuota).filter_by(date).all()
         return render_template('transactions.html',cuota=cuota)
     if request.method == 'POST':
-        cuota
+        return 0
     
 @app.route('/depositos/<user_id>',methods=['GET','POST'])
 @login_required
@@ -230,7 +257,7 @@ def reportes(user_id):
     caja =session.query(Caja).filter_by(date).all()
     caja_salida= session.query(Caja_Salida).filter_by(date).all()
     caja_entrada = session.query(Caja_Entrada).filter_by(date).all()
-    return render_template('reports.html', prestamos=prestamos,pagos=pagos,caja=caja,caja_salida=caja_entrada,caja_salida=caja_salida)
+    return render_template('reports.html', prestamos=prestamos,pagos=pagos,caja=caja,caja_entrada=caja_entrada,caja_salida=caja_salida)
 
 @app.route('/gallery/<user_name>/<int:img_id>', methods=['GET','POST'])
 @login_required

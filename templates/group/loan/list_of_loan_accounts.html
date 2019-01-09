@@ -37,13 +37,13 @@
              {% for loan_account in loan_accounts_list %}
               <tr>
                 <td><b>{{ forloop.counter }}</b></td>
-                <td><a href="{% url 'loans:grouploanaccount' loan_account.id %}" style="color:#337ab7;">{{ loan_account.account_no }}</a></td>
-                <td>{{ loan_account.opening_date }}</td>
+                <td><a href="{{url_for('solicitud_ver',user_id=user.id,solicitud_id=loan_account.id)}}" style="color:#337ab7;">{{ loan_account.id_person }}</a></td>
+                <td>{{ loan_account.fecha_creacion }}</td>
                 <td>{{ loan_account.status }}</td>
                 <td>{{ loan_account.interest_type }}</td>
-                <td>{{ loan_account.loan_amount|floatformat:2  }}</td>
-                <td>{{ loan_account.total_loan_balance|floatformat:2  }}</td>
-                <td>{{ loan_account.created_by }}</td>
+                <td>{{ loan_account.capital_inicial }}</td>
+                <td>{{ loan_account.total_loan_balance}}</td>
+                <!-- <td>{{ loan_account.created_by }}</td> -->
               </tr>
              {% endfor %}
             </tbody>

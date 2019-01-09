@@ -1,0 +1,23 @@
+Collecting SQLAlchemy
+  Downloading https://files.pythonhosted.org/packages/0c/7d/769c5fc22c0cdefd097b91cc525b6d8c88bf2afd8b0315b1e7ca088956b4/SQLAlchemy-1.2.15.tar.gz (5.6MB)
+Building wheels for collected packages: SQLAlchemy
+  Running setup.py bdist_wheel for SQLAlchemy: started
+  Running setup.py bdist_wheel for SQLAlchemy: finished with status 'error'
+  Complete output from command /usr/bin/python -u -c "import setuptools, tokenize;__file__='/tmp/pip-install-_qm_GN/SQLAlchemy/setup.py';f=getattr(tokenize, 'open', open)(__file__);code=f.read().replace('\r\n', '\n');f.close();exec(compile(code, __file__, 'exec'))" bdist_wheel -d /tmp/pip-wheel-CABu_w --python-tag cp27:
+  usage: -c [global_opts] cmd1 [cmd1_opts] [cmd2 [cmd2_opts] ...]
+     or: -c --help [cmd1 cmd2 ...]
+     or: -c --help-commands
+     or: -c cmd --help
+  
+  error: invalid command 'bdist_wheel'
+  
+  ----------------------------------------
+  Running setup.py clean for SQLAlchemy
+Failed to build SQLAlchemy
+Installing collected packages: SQLAlchemy
+  Found existing installation: SQLAlchemy 0.7.4
+    Uninstalling SQLAlchemy-0.7.4:
+      Successfully uninstalled SQLAlchemy-0.7.4
+  Running setup.py install for SQLAlchemy: started
+    Running setup.py install for SQLAlchemy: finished with status 'done'
+Successfully installed SQLAlchemy-1.2.15

@@ -8,7 +8,7 @@
     <div class="container">
       <div class="col-12 receipts">
         <form id="grouploanapplicationform" class="form-horizontal" role="form" method="post">
-          {% csrf_token %}
+          
           <div class="saving_form">
             <div class="input-group">
               <label class="filter_branch"> Account Number :
@@ -79,7 +79,7 @@
         }
         else {
           alert("Group Loan Application submitted sucessfully");
-          url = "{% url 'loans:grouploanaccount' 1 %}".replace(1, data.loanaccount_id)
+          url = "/solicitud/<user_id>"
           window.location = url;
         }
           if(data.error && data.error_message){

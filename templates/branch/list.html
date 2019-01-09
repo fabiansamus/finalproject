@@ -11,7 +11,7 @@
       </div>
     </div>
     <div class="col">
-      <button type="button" class="pull-right branch"><a href="{% url 'micro_admin:createbranch' %}">Create Branch</a></button>
+      <button type="button" class="pull-right branch"><a href="/prestamistas/crear/{{user.id}}">Create Branch</a></button>
     </div>
   </div>
   <div class="row list_page_view">
@@ -22,28 +22,29 @@
           <th width="20%" scope="col">Prestamista Date</th>
           <th width="20%" scope="col">Phone Number</th>
           <th width="20%" scope="col">Status</th>
-          {% if user.is_admin %}
+          {% if user.status=='admin' %}
           <th width="20%" scope="col">Actions</th>
           {% endif %}
         </tr>
       </thead>
       <tbody>
-        {% for branch in branch_list %}
+        {% for prestamista in prestamistas %}
         <tr>
-          <td><a href="{% url 'micro_admin:branchprofile' branch.id %}" style="color:#337ab7">{{ prestamista.name|capfirst }}</a></td>
-          <td>{{ prestamista.opening_date }}</td>
-          <td>{{ prestamista.phone_number }}</td>
+          <td><a href="{{url_for('prestamistas_ver',user_id=user.id,prestamista_id=prestamista.id)}}" style="color:#337ab7">{{ prestamista.name }}</a></td>
+          <td>{{ prestamista.birht_date }}</td>
+          <td>{{ prestamista.personal_phone_number }}</td>
           {% if branch.is_active %}
-          <td><a href="{% url 'micro_admin:deletebranch' branch.id %}"><i class="fa fa-circle icon-squa green"></i></a></td>
+          <td><a href="delete"><i class="fa fa-circle icon-squa green"></i></a></td>
           {% else %}
-          <td><a href="{% url 'micro_admin:deletebranch' branch.id %}"><i class="fa fa-circle icon-squa red"></i></a></td>
+          <td><a href="delete"><i class="fa fa-circle icon-squa red"></i></a></td>
           {% endif %}
           {% if user.is_admin %}
           <td>
-            <a href="{% url 'micro_admin:branchprofile' branch.id %}"><i class="fa fa-eye"></i></a>
-            <a href="{% url 'micro_admin:editbranch' branch.id %}"><i class="fa fa-pencil-square-o edit-icon"></i></a>
+              
+            <a href="{{url_for('prestamistas_ver',user_id=user.id,prestamista_id=prestamista.id)}}"><i class="fa fa-eye"></i></a>
+            <a href="{{url_for('prestamistas_editar',user_id=user.id,prestamista_id=prestamista.id)}}"><i class="fa fa-pencil-square-o edit-icon"></i></a>
             {% if branch.is_active %}
-              <a href="{% url 'micro_admin:deletebranch' branch.id %}"><i class="fa fa-trash-o trash-icon"></i></a>
+              <a href="delete"><i class="fa fa-trash-o trash-icon"></i></a>
             {% endif %}
           </td>
           {% endif %}

@@ -12,7 +12,7 @@
             <div class="count_view red">
               <div class="count_list">
                 <h2>Prestamos</h2>
-                <p>15</p>
+                <p>{{ prestamos|length  }}</p>
               </div>
               <div class="detail_list_icon">
                 <i class="fa fa-university pink"></i>
@@ -23,7 +23,7 @@
             <div class="count_view blue">
               <div class="count_list">
                 <h2>Solicitudes</h2>
-                <p>2</p>
+                <p>{{ solicitud|length }}</p>
               </div>
               <div class="detail_list_icon">
                 <i class="fa fa-user blue"></i>
@@ -34,7 +34,7 @@
             <div class="count_view orange">
               <div class="count_list">
                 <h2>Clientes en Mora</h2>
-                <p>0</p>
+                <p>{{ due|length }}</p>
               </div>
               <div class="detail_list_icon">
                 <i class="fa fa-users yellow"></i>
@@ -44,8 +44,8 @@
           <div class="col">
             <div class="count_view green">
               <div class="count_list">
-                <h2>Nuevos Clientes</h2>
-                <p>1</p>
+                <h2>Nuevos Pagos</h2>
+                <p>{{ pago|length }}</p>
               </div>
               <div class="detail_list_icon">
                 <i class="fa fa-user-plus green"></i>

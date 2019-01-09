@@ -15,9 +15,9 @@
       </div>
     </div>
   <div class="container">
-      <form  id="createbranchform" class="branch_create" role="form" method="POST">{% csrf_token %}
+      <form  id="createbranchform" class="branch_create" role="form" method="POST" action="/prestamistas/crear_/{% user.id %}">
         <div class="input-group">
-          <label class="filter_branch">Branch Name :
+          <label class="filter_branch">Prestamista Name :
           <input type="text" class="locations" placeholder="Branch Name" name="name" id="name"></label>
         </div>
         <div class="input-group">
